@@ -1,6 +1,6 @@
 # protobuf
 
-## Advantages
+### Advantages
 * Strictly Typed
   * Defined data type of all fields 
 * Generate code for serialization & deserialization 
@@ -14,6 +14,40 @@
   * It serializes data in binary format unlike json serilizing in string format
   * It makes data much smaller and cheaper to send
   
-## Disadvantanges:
+### Disadvantanges:
  * Binary Serialization
   * Binary data cannot be read directly, difficult to review and edit
+
+---
+### How to create protobuf message ?
+
+First we need to create a .proto file
+
+![Screen Shot 2022-11-22 at 12 08 35 PM](https://user-images.githubusercontent.com/108142931/203259849-587f9c1b-6b6d-46ba-8379-853518033646.png)
+
+ 1. proto syntax - Like version
+ 2. "message" keyword to define message
+ 3. "Message name"
+ 4. "data type" "field name"
+ 5. "field position/tags"
+ 
+> Note: When you dont set a value to a field, it wont be serialized. But while deserializing , field will get default values
+
+Default values for scalar types:
+* int - 0
+* bool - false
+* string - empty string
+* bytes - empty bytes
+
+### Importance of field TAGS
+
+Field tags (Position) in the .proto file is key for serialization. Because serialization happens using the tags not the field names.
+Some rules/tips for defining tags:
+* TAGS - smallest value 1 - biggest value 536 million
+* Google reserves set of tags for libraries - from 19000 to 19999
+* Payload is affected by tag size, so choose ur tag wisely for your schema
+  * Tag 1 to 15 - 1 Byte
+  * Tag 16 to 2047 - 2 Byte
+  * and so on
+
+> Tips: Keep smallest tag numbers for most populated fields in your schema
