@@ -16,7 +16,7 @@
   
 ### Disadvantanges:
  * Binary Serialization
-  * Binary data cannot be read directly, difficult to review and edit
+   * Binary data cannot be read directly, difficult to review and edit
 
 ---
 ### How to create protobuf message ?
@@ -33,11 +33,18 @@ First we need to create a .proto file
  
 > Note: When you dont set a value to a field, it wont be serialized. But while deserializing , field will get default values
 
-Default values for scalar types:
+**Default values for scalar types:**
 * int - 0
 * bool - false
 * string - empty string
 * bytes - empty bytes
+
+**Special field - repeated:**
+* Its like collections of any type
+``` 
+repeated <datatype> <filedname> = <tag>;
+ex: repeated string phones = 6;
+```
 
 ### Importance of field TAGS
 
@@ -51,3 +58,30 @@ Some rules/tips for defining tags:
   * and so on
 
 > Tips: Keep smallest tag numbers for most populated fields in your schema
+
+**enum type:**
+Protobuf also supports enum. Keyword is "enum"
+* First tag of enum should be zero because enum tag starts with zero but as per tag rules TAG number should start with 1. Hence mark 1st tag as zero.
+```
+syntax = "proto3";
+
+enum EyeColor {
+    EYE_COLOR_UNSPECIFIED = 0;
+    EYE_COLOR_BLACK = 1;
+    EYE_COLOR_BLUE = 2;
+}
+
+message Account {
+    uint32 id = 1;
+    string name = 2;
+    bytes thumbnail = 3;
+    bool is_verified = 4;
+    float height = 5;
+
+    repeated string phones = 6;
+    EyeColor eye_color = 7;
+}
+```
+**Comments:**
+* Multiline comment - /* -- */
+* Single line - //
