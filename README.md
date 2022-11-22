@@ -85,3 +85,77 @@ message Account {
 **Comments:**
 * Multiline comment - /* -- */
 * Single line - //
+
+### Multiple message in same proto file
+```
+syntax = "proto3";
+
+message message1 {
+    uint32 id =1;
+}
+
+enum Enum1 {
+    DUMMY_UNDEFINED = 1;
+    /*
+    other definitions
+    */
+}
+
+message message2 {
+    message1 msg = 1;
+    Enum1 enum = 2;
+    uint32 phone =3;
+}
+```
+
+### Nested Messages
+```
+message message2 {
+    message message1 {
+        uint32 id =1;
+    }
+    
+    enum Enum1 {
+        DUMMY_UNDEFINED = 1;
+        /*
+        other definitions
+        */
+    }
+    message1 msg = 1;
+    Enum1 enum = 2;
+    uint32 phone =3;
+}
+```
+
+### Imports & Package
+```
+syntax="proto3";
+
+import "message3.proto";
+
+message message4 {
+    message3 mes =1;
+}
+```
+> message3.proto file is in same location as of message4 
+
+Packaged proto files
+```
+syntax = "proto3";
+
+package my.package;
+
+message Message4 {
+    uint32 id;
+}
+```
+Accessing message from a package
+```
+syntax="proto3";
+
+import "package.proto";
+
+message Message5 {
+    my.package.Message4 mes =1;
+}
+```
