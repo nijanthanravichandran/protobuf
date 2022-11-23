@@ -159,3 +159,34 @@ message Message5 {
     my.package.Message4 mes =1;
 }
 ```
+
+### Protobuf compiler installation
+
+```
+brew install protobuf
+```
+
+### Compile protos
+
+Proto complier supports compiling files in different languages. Supported languages:
+
+```
+  --cpp_out=OUT_DIR           Generate C++ header and source.
+  --csharp_out=OUT_DIR        Generate C# source file.
+  --java_out=OUT_DIR          Generate Java source file.
+  --kotlin_out=OUT_DIR        Generate Kotlin file.
+  --objc_out=OUT_DIR          Generate Objective-C header and source.
+  --php_out=OUT_DIR           Generate PHP source file.
+  --pyi_out=OUT_DIR           Generate python pyi stub.
+  --python_out=OUT_DIR        Generate Python source file.
+  --ruby_out=OUT_DIR          Generate Ruby source file.
+```
+You can generate different language source file in single command.
+
+protoc --java_out=<output dir> --python_out=<output dir> <path to proto file>
+
+Ex: ``` protoc --java_out=java --python_out=python simple.proto ```
+
+Directory Structure:
+![Screen Shot 2022-11-23 at 9 28 19 AM](https://user-images.githubusercontent.com/108142931/203474686-ca39533f-6755-4e9a-9d1e-10bbb66e311c.png)
+
