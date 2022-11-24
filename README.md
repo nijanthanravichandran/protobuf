@@ -190,3 +190,50 @@ Ex: ``` protoc --java_out=java --python_out=python simple.proto ```
 Directory Structure:
 ![Screen Shot 2022-11-23 at 9 28 19 AM](https://user-images.githubusercontent.com/108142931/203474686-ca39533f-6755-4e9a-9d1e-10bbb66e311c.png)
 
+
+
+### Simple Proto message creation
+
+Step 1: Create simple.proto file
+```
+syntax = "proto3";
+
+message Simple {
+  uint32 id = 1;
+  bool is_simple = 2;
+  string name = 3;
+  repeated uint32 sample_list = 4;
+}
+```
+
+Step 2: Complie the proto file
+```
+protoc -I${PROTO_DIR} --python_out=${PROTO_DIR} ${PROTO_DIR}/*.proto
+```
+![Screen Shot 2022-11-24 at 3 36 42 PM](https://user-images.githubusercontent.com/108142931/203775256-b47aa593-892d-4510-a04f-66dddf3c94f9.png)
+
+Step 3: Generate message using compiled file
+```
+import proto.simple_pb2 as simple_pb2
+
+def simple():
+    return simple_pb2.Simple (
+        id=10,
+        is_simple=True,
+        name="Nijanthan",
+        sample_list=[1, 2, 3]
+    )
+
+if __name__ == '__main__':
+    print(simple())
+```
+Output of above code:
+```
+/Volumes/Pandora/Neom/Programming/3_Python/protobuf/pycharm/venv/bin/python /Volumes/Pandora/Neom/Programming/3_Python/protobuf/pycharm/main.py 
+id: 10
+is_simple: true
+name: "Nijanthan"
+sample_list: 1
+sample_list: 2
+sample_list: 3
+```
