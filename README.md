@@ -237,3 +237,78 @@ sample_list: 1
 sample_list: 2
 sample_list: 3
 ```
+
+### Complex proto message
+
+complex.proto
+ ```
+ syntax="proto3";
+package example.complex;
+
+message Dummy {
+  uint32 id =1;
+  string name =2;
+}
+
+message Complex {
+  Dummy one_dummy = 1;
+  repeated Dummy multi_dummy = 2;
+}
+ ```
+ 
+ compile and generate : complex_pb2.py
+ 
+ main.py
+ ```
+ import proto.simple_pb2 as simple_pb2
+import proto.complex_pb2 as complex_pb2
+
+def simple():
+    return simple_pb2.Simple (
+        id=10,
+        is_simple=True,
+        name="Nijanthan",
+        sample_list=[1, 2, 3]
+    )
+
+def complex():
+    message = complex_pb2.Complex()
+    message.one_dummy.id = 12
+    message.one_dummy.name = "nijanthan"
+    message.multi_dummy.add(id=13, name="myname")
+    message.multi_dummy.add(id=14, name="myname")
+    message.multi_dummy.add(id=15, name="myname")
+    return message
+
+if __name__ == '__main__':
+    print(simple())
+    print(complex())
+```
+ 
+ output:
+ ```
+ /Volumes/Pandora/Neom/Programming/3_Python/protobuf/pycharm/venv/bin/python /Volumes/Pandora/Neom/Programming/3_Python/protobuf/pycharm/main.py 
+id: 10
+is_simple: true
+name: "Nijanthan"
+sample_list: 1
+sample_list: 2
+sample_list: 3
+
+one_dummy {
+  id: 12
+  name: "nijanthan"
+}
+multi_dummy {
+  id: 13
+  name: "myname"
+}
+multi_dummy {
+  id: 14
+  name: "myname"
+}
+multi_dummy {
+  id: 15
+  name: "myname"
+}
+ ```
