@@ -312,3 +312,12 @@ multi_dummy {
   name: "myname"
 }
  ```
+
+## gRPC:
+ gRPC is an open source RPC framework used to build scalable and fast api. 
+ 
+Better aspects of gRPC:
+ * gRPC uses protocol buffers for data transfer which has much lesser payload size then rest based api calls
+ * gRPC uses HTTP2 which allows parallel request
+ * REST APIs generally use JSON or XML message formats, while gRPC uses protocol buffers. To signal errors, REST APIs use HTTP status codes, while gRPC uses error codes. gRPC's message sizes tend to be dramatically smaller than those of REST APIs.
+
